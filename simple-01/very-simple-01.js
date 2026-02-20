@@ -1,24 +1,19 @@
 const dgram = require('node:dgram');
 
-const message = process.argv[2] || 'Hello from Node.js UDP client';
-const host = process.argv[3] || '127.0.0.1';
-const port = Number(process.argv[4] || 41234);
+const messageParam = process.argv[2] || 'Hello from Node.js UDP client';
+const hostParam = process.argv[3] || '127.0.0.1';
+const portParam = Number(process.argv[4] || 41234);
 
-if (Number.isNaN(port) || port <= 0 || port > 65535) {
-	console.error('Invalid port. Use a number between 1 and 65535.');
+if (Number.isNaN(portParam) || portParam <= 0 || portParam > 65535) {
+	console.error('Invalid parameter port. Use a number between 1 and 65535.');
 	process.exit(1);
 }
 
-const client = dgram.createSocket('udp4');
-const payload = Buffer.from(message, 'utf8');
+const message = messageParam;
+const host = hostParam;
+const port = portParam;
 
-client.send(payload, port, host, (error) => {
-	if (error) {
-		console.error('Failed to send UDP message:', error.message);
-		client.close();
-		process.exit(1);
-	}
+console.log(`parameter message: "${message}" parameter host: "${host}" parameter port: ${port}`);
 
-	console.log(`Sent "${message}" to ${host}:${port}`);
-	client.close();
-});
+
+
